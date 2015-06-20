@@ -163,6 +163,7 @@ public class CompositeNegotiator implements CapabilityNegotiator, IMessageListen
 		{
 			LOG.debug("SERVER: {}", msg.asRaw());
 		}
+		// FIXME handle server PING messages ourselves
 		if (msg instanceof ServerNumericMessage)
 		{
 			final ServerNumericMessage numeric = (ServerNumericMessage) msg;

@@ -43,7 +43,7 @@ public abstract class AbstractMessageReader implements IMessageReader, INeedsCon
 	{
 		if (canRead)
 		{
-			ircData.append(getConnection().read());				
+			ircData.append(getConnection().read());
 			canRead = false;
 			
 			trySetNewLine();
