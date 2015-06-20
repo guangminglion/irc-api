@@ -14,6 +14,8 @@ import com.ircclouds.irc.api.filters.*;
 import com.ircclouds.irc.api.listeners.*;
 import com.ircclouds.irc.api.state.*;
 import com.ircclouds.irc.api.utils.*;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLException;
 
 /**
  * The main implementation of {@link IRCApi}. It offers the ability to save the
@@ -500,6 +502,12 @@ public class IRCApiImpl implements IRCApi
 			tryInvokeCallback(aCallback, _d, aExc);
 			LOG.error("Error Closing Session.", aExc);
 		}
+	}
+
+	@Override
+	public void secureConnection(final SSLContext aContext, final String aHostname, final int aPort) throws SSLException
+	{
+		this.session.secureConnection(aContext, aHostname, aPort);
 	}
 
 	private void checkConnected()

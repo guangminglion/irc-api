@@ -75,4 +75,9 @@ public class SocketChannelConnection implements IConnection
 			channel.close();
 		}
 	}
+
+	SocketChannel getSocketChannel()
+	{
+		return this.channel;
+	}
 }
