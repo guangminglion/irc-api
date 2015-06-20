@@ -247,7 +247,7 @@ public class SSLSocketChannelConnection implements IConnection
 
 	private void executeTasks()
 	{
-		Runnable _r = null;
+		Runnable _r;
 		while ((_r = sslEngine.getDelegatedTask()) != null)
 		{
 			new Thread(_r).start();
@@ -256,6 +256,7 @@ public class SSLSocketChannelConnection implements IConnection
 		hStatus = sslEngine.getHandshakeStatus();
 	}
 	
+	@SuppressWarnings("UseSpecificCatch")
 	private SSLContext getDefaultSSLContext()
 	{
 		try
@@ -263,15 +264,18 @@ public class SSLSocketChannelConnection implements IConnection
 			SSLContext _sslCtx = SSLContext.getInstance("SSL");
 			_sslCtx.init(null, new TrustManager[] { new X509TrustManager()
 			{
+				@Override
 				public java.security.cert.X509Certificate[] getAcceptedIssuers()
 				{
 					return null;
 				}
 
+				@Override
 				public void checkClientTrusted(java.security.cert.X509Certificate[] certs, String authType)
 				{
 				}
 
+				@Override
 				public void checkServerTrusted(java.security.cert.X509Certificate[] certs, String authType)
 				{
 				}
