@@ -75,7 +75,7 @@ public class TlsCapability implements Capability
 				{
 					LOG.error("error starting handshake", e);
 				}
-				return true;
+				return false;
 			case 691:
 				// FIXME abort connection with exception
 				return false;
