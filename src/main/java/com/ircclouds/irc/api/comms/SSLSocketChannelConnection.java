@@ -28,6 +28,37 @@ public class SSLSocketChannelConnection implements IConnection
 	private HandshakeStatus hStatus;
 	private int remaingUnwraps;
 
+	public SSLSocketChannelConnection()
+	{
+	}
+
+	/**
+	 * Convert existing SocketChannelConnection into
+	 * SSLSocketChannelConnection.
+	 *
+	 * @param aConnection Plain text socket channel connection.
+	 * @param aContext SSL Context, may be null to use default SSL context.
+	 * @param aHostname Host name.
+	 * @param aPort Port number.
+	 * @throws javax.net.ssl.SSLException Exception in case we fail to start
+	 * an SSL handshake.
+	 */
+	public SSLSocketChannelConnection(SocketChannelConnection aConnection, SSLContext aContext, String aHostname, int aPort) throws SSLException
+	{
+		sChannel = aConnection.getSocketChannel();
+
+		sslEngine  = aContext != null ? aContext.createSSLEngine(aHostname, aPort) : getDefaultSSLContext().createSSLEngine(aHostname, aPort);
+		sslEngine.setNeedClientAuth(false);
+		sslEngine.setUseClientMode(true);
+		sslEngine.beginHandshake();
+		hStatus = sslEngine.getHandshakeStatus();
+
+		appSendBuffer = ByteBuffer.allocate(sslEngine.getSession().getApplicationBufferSize());
+		cipherSendBuffer = ByteBuffer.allocate(sslEngine.getSession().getPacketBufferSize());
+		cipherRecvBuffer = ByteBuffer.allocate(sslEngine.getSession().getPacketBufferSize());
+		appRecvBuffer = ByteBuffer.allocate(sslEngine.getSession().getApplicationBufferSize());
+	}
+
 	@Override
 	public boolean open(String aHostname, int aPort, SSLContext aContext, Proxy aProxy, boolean resolveThroughProxy) throws IOException
 	{
@@ -216,7 +247,7 @@ public class SSLSocketChannelConnection implements IConnection
 
 	private void executeTasks()
 	{
-		Runnable _r = null;
+		Runnable _r;
 		while ((_r = sslEngine.getDelegatedTask()) != null)
 		{
 			new Thread(_r).start();
@@ -225,6 +256,7 @@ public class SSLSocketChannelConnection implements IConnection
 		hStatus = sslEngine.getHandshakeStatus();
 	}
 	
+	@SuppressWarnings("UseSpecificCatch")
 	private SSLContext getDefaultSSLContext()
 	{
 		try
@@ -232,15 +264,18 @@ public class SSLSocketChannelConnection implements IConnection
 			SSLContext _sslCtx = SSLContext.getInstance("SSL");
 			_sslCtx.init(null, new TrustManager[] { new X509TrustManager()
 			{
+				@Override
 				public java.security.cert.X509Certificate[] getAcceptedIssuers()
 				{
 					return null;
 				}
 
+				@Override
 				public void checkClientTrusted(java.security.cert.X509Certificate[] certs, String authType)
 				{
 				}
 
+				@Override
 				public void checkServerTrusted(java.security.cert.X509Certificate[] certs, String authType)
 				{
 				}
