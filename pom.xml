@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.jitsi</groupId>
 	<artifactId>irc-api</artifactId>
-	<version>1.0-0015-jitsi-1</version>
+	<version>1.0-0015-jitsi-2-SNAPSHOT</version>
 	<packaging>bundle</packaging>
 
 	<name>IRC API</name>
@@ -41,7 +41,7 @@
 		<url>https://github.com/jitsi/irc-api</url>
 		<connection>scm:git:git://github.com/jitsi/irc-api.git</connection>
 		<developerConnection>scm:git:git@github.com:jitsi/irc-api.git</developerConnection>
-		<tag>1.0-0015-jitsi-1</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 	<properties>
