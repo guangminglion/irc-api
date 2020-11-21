@@ -50,14 +50,14 @@ public interface IRCApi
 	 *            CAP negotiator instance used when establishing the IRC
 	 *            connection. If <code>null</code> instance is provided, then
 	 *            capability negotiation is not started and IRCv3 will not be
-	 *            available.<br/>
+	 *            available.<br>
 	 *            Please refer to available negotiators in package
 	 *            {@link com.ircclouds.irc.api.negotiators} for various options.
 	 *            The {@link com.ircclouds.irc.api.negotiators.NoopNegotiator}
 	 *            is useful for case where you want to let the IRC server know
 	 *            that IRCv3 support is available, but no capabilities need to
 	 *            be negotiated. The {@link com.ircclouds.irc.api.negotiators.CompositeNegotiator}
-	 *            is most likely the negotiator to use for your use case.<br/>
+	 *            is most likely the negotiator to use for your use case.<br>
 	 *            <b>Note</b> that the negotiator is expected to
 	 *            take over (transparently, irc-api will not signal the
 	 *            instance) when CAP negotiation has started. For this purpose,
@@ -223,7 +223,7 @@ public interface IRCApi
 	 * 
 	 * @param aChannel A channel name
 	 * @param aNick A nick to be kicked
-	 * @param aKickMessage
+	 * @param aKickMessage the message to send when a nick is kicked
 	 */
 	void kick(String aChannel, String aNick, String aKickMessage);
 

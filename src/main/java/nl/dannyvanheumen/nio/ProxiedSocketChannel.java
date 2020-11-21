@@ -71,7 +71,7 @@ public class ProxiedSocketChannel extends SocketChannel
 	 * Create a proxied socket channel with provided proxy.
 	 *
 	 * @param proxy the required proxy configuration (null == Proxy.NO_PROXY)
-	 * @throws IOException
+	 * @throws IOException when setting the socket timeout fails
 	 */
 	public ProxiedSocketChannel(final Proxy proxy) throws IOException
 	{

@@ -13,32 +13,32 @@ import com.ircclouds.irc.api.domain.*;
 public interface IServerParameters
 {
 	/**
-	 * Returns the desired to use nickname
-	 * @return
+	 * Gets the desired to use nickname
+	 * @return the desired to use nickname
 	 */
 	String getNickname();
 
 	/**
-	 * Returns desired to use alternative nicknames
-	 * @return
+	 * Gets desired to use alternative nicknames
+	 * @return desired to use alternative nicknames
 	 */
 	List<String> getAlternativeNicknames();
 
 	/**
-	 * Returns the desired to use ident
-	 * @return
+	 * Gets the desired to use ident
+	 * @return the desired to use ident
 	 */
 	String getIdent();
 
 	/**
-	 * Returns the desired to use real name
-	 * @return
+	 * Gets the desired to use real name
+	 * @return the desired to use real name
 	 */
 	String getRealname();
 
 	/**
-	 * Returns the desired to use {@link IRCServer}
-	 * @return
+	 * Gets the desired to use {@link IRCServer}
+	 * @return the desired to use {@link IRCServer}
 	 */
 	IRCServer getServer();
 }
