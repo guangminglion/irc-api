@@ -86,7 +86,7 @@ public class SaslCapability extends VariousMessageListenerAdapter
 	/**
 	 * Constructor.
 	 *
-	 * @param enable <tt>true</tt> to negotiate enabling, <tt>false</tt> to
+	 * @param enable {@code true} to negotiate enabling, {@code false} to
 	 * negotiate disabling
 	 * @param authzid (optional) authorization role id
 	 * @param user username

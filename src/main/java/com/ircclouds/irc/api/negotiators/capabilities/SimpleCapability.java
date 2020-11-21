@@ -40,7 +40,7 @@ public class SimpleCapability implements CompositeNegotiator.Capability
 	 * disabling.
 	 *
 	 * @param id the capability id
-	 * @param enable <tt>true</tt> to negotiate for enabling, <tt>false</tt> to
+	 * @param enable {@code true} to negotiate for enabling, {@code false} to
 	 * negotiate for disabling
 	 */
 	public SimpleCapability(final String id, final boolean enable)

@@ -501,7 +501,7 @@ public class CompositeNegotiator implements CapabilityNegotiator, IMessageListen
 	 * conversation or one that just now starts a conversation.
 	 *
 	 * @return Returns the instance of the conversing capability or
-	 * <tt>null</tt> if no capability is left to start/continue a conversation.
+	 * {@code null} if no capability is left to start/continue a conversation.
 	 */
 	private Capability conversingCapability()
 	{
@@ -696,22 +696,22 @@ public class CompositeNegotiator implements CapabilityNegotiator, IMessageListen
 		 * Converse with IRC server, message from server provided.
 		 *
 		 * The first message, as a way of initiating the conversation will
-		 * contain a <tt>null</tt> message. The null message is a sign that
+		 * contain a {@code null} message. The null message is a sign that
 		 * there isn't a server response yet to process.
 		 *
 		 * The relay instance will be provided for every call. The relay
 		 * instance can be used to send message to the IRC server. It is allowed
 		 * to send multiple message. Once the method returns with a value
-		 * <tt>true</tt>, this signals the end of this round. Once a server
-		 * response has arrived, the conversation continues. Once <tt>false</tt>
+		 * {@code true}, this signals the end of this round. Once a server
+		 * response has arrived, the conversation continues. Once {@code false}
 		 * is returned, the CompositeNegotiator will register the negotiation as
 		 * completed and will not return anymore.
 		 *
-		 * Upon returning <tt>false</tt> the next capability will immediately
-		 * start conversation, so make sure that you only return <tt>false</tt>
+		 * Upon returning {@code false} the next capability will immediately
+		 * start conversation, so make sure that you only return {@code false}
 		 * once the conversation is completely finished. If a confirmation
 		 * message is expected from the server and immediately sending another
-		 * message may affect the outcome, then do not return <tt>false</tt>
+		 * message may affect the outcome, then do not return {@code false}
 		 * yet.
 		 *
 		 * @param relay the relay to the IRC server
