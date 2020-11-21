@@ -3,11 +3,6 @@ package com.ircclouds.irc.api.domain;
 import com.ircclouds.irc.api.domain.messages.interfaces.*;
 import java.net.Proxy;
 
-/**
- * 
- * @author
- * 
- */
 public class IRCServer implements ISource
 {
 	private static final int DEFAULT_IRC_SERVER_PORT = 6667;

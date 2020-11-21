@@ -1,10 +1,5 @@
 package com.ircclouds.irc.api.domain;
 
-/**
- * 
- * @author
- * 
- */
 public final class IRCServerNumerics
 {
 

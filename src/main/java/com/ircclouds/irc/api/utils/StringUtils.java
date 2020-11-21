@@ -4,11 +4,6 @@ import java.util.*;
 
 import com.ircclouds.irc.api.domain.*;
 
-/**
- * 
- * @author
- * 
- */
 public final class StringUtils
 {
 

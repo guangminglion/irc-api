@@ -6,11 +6,6 @@ import com.ircclouds.irc.api.domain.*;
 import com.ircclouds.irc.api.domain.messages.interfaces.*;
 import com.ircclouds.irc.api.utils.*;
 
-/**
- * 
- * @author
- * 
- */
 public class ChannelModeMessage implements IMessage
 {
 	private ISource user;

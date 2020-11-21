@@ -3,11 +3,6 @@ package com.ircclouds.irc.api.utils;
 import com.ircclouds.irc.api.domain.*;
 import com.ircclouds.irc.api.domain.messages.interfaces.*;
 
-/**
- * 
- * @author
- * 
- */
 public final class ParseUtils
 {
 	private ParseUtils()

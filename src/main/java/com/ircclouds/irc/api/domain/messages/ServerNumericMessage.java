@@ -5,11 +5,6 @@ import java.text.*;
 import com.ircclouds.irc.api.domain.*;
 import com.ircclouds.irc.api.domain.messages.interfaces.*;
 
-/**
- * 
- * @author
- * 
- */
 public class ServerNumericMessage implements IServerMessage, IHasText, IHasNumericCode
 {
 	private final static NumberFormat FORMATTER = new DecimalFormat("000");

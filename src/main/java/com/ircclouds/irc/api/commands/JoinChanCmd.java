@@ -2,11 +2,6 @@ package com.ircclouds.irc.api.commands;
 
 import com.ircclouds.irc.api.utils.*;
 
-/**
- * 
- * @author
- * 
- */
 public class JoinChanCmd implements ICommand
 {
 	private static final String JOIN = "JOIN";

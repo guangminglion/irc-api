@@ -3,11 +3,6 @@ package com.ircclouds.irc.api.domain.messages;
 import com.ircclouds.irc.api.domain.*;
 import com.ircclouds.irc.api.domain.messages.interfaces.*;
 
-/**
- * 
- * @author
- * 
- */
 public class ChanJoinMessage implements IChannelMessage, IUserMessage
 {
 	private String chanName;
