@@ -1,10 +1,10 @@
 package com.ircclouds.irc.api.negotiators.capabilities;
 
 import com.ircclouds.irc.api.negotiators.api.Relay;
-import mockit.Mocked;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
 
 /**
  * @author Danny van Heumen
@@ -55,7 +55,8 @@ public class SimpleCapabilityTest {
 	}
 
 	@Test
-	public void testSimpleCapabilityConversation(@Mocked final Relay relay) {
+	public void testSimpleCapabilityConversation() {
+		Relay relay = mock(Relay.class);
 		SimpleCapability cap = new SimpleCapability("away-notify");
 		assertFalse(cap.converse(relay, null));
 	}

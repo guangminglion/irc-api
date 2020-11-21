@@ -7,7 +7,12 @@ import org.junit.*;
 import com.ircclouds.irc.api.MockUtils.ConnectedApi;
 import com.ircclouds.irc.api.comms.*;
 import com.ircclouds.irc.api.domain.*;
+import org.junit.runner.*;
+import org.powermock.core.classloader.annotations.*;
+import org.powermock.modules.junit4.*;
 
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(AbstractIRCSession.class)
 public class TestCaseConnectToDifferentServers
 {
 	@Test

@@ -1,9 +1,9 @@
 package com.ircclouds.irc.api.negotiators;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+
 import com.ircclouds.irc.api.negotiators.api.Relay;
-import mockit.Expectations;
-import mockit.Mocked;
-import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -11,14 +11,6 @@ import org.junit.Test;
  * @author Danny van Heumen
  */
 public class SaslContextTest {
-
-	public SaslContextTest() {
-	}
-
-	@Before
-	public void setUp() {
-	}
-
 	@Test(expected = NullPointerException.class)
 	@SuppressWarnings("ResultOfObjectAllocationIgnored")
 	public void testConstructionNullRelay() {
@@ -27,203 +19,178 @@ public class SaslContextTest {
 
 	@Test
 	@SuppressWarnings("ResultOfObjectAllocationIgnored")
-	public void testConstruction(@Mocked Relay relay) {
+	public void testConstruction() {
+		Relay relay = mock(Relay.class);
 		new SaslContext(relay);
 	}
 
 	@Test(expected = IllegalStateException.class)
-	public void testNoInitiateConfirm(@Mocked Relay relay) {
+	public void testNoInitiateConfirm() {
+		Relay relay = mock(Relay.class);
 		SaslContext context = new SaslContext(relay);
 		context.confirm("+", "user", "pass", "role");
 	}
 
 	@Test(expected = IllegalStateException.class)
-	public void testNoInitiateLoggedIn(@Mocked Relay relay) {
+	public void testNoInitiateLoggedIn() {
+		Relay relay = mock(Relay.class);
 		SaslContext context = new SaslContext(relay);
 		context.loggedIn();
 	}
 
 	@Test(expected = IllegalStateException.class)
-	public void testNoInitiateSuccess(@Mocked Relay relay) {
+	public void testNoInitiateSuccess() {
+		Relay relay = mock(Relay.class);
 		SaslContext context = new SaslContext(relay);
 		context.success();
 	}
 
 	@Test
-	public void testInit(@Mocked final Relay relay) {
-		new Expectations() {
-			{
-				relay.send("AUTHENTICATE PLAIN");
-			}
-		};
+	public void testInit() {
+		Relay relay = mock(Relay.class);
 		SaslContext context = new SaslContext(relay);
 		context.init();
+		verify(relay).send("AUTHENTICATE PLAIN");
 	}
 
 	@Test(expected = IllegalStateException.class)
-	public void testNoConfirmLoggedIn(@Mocked Relay relay) {
+	public void testNoConfirmLoggedIn() {
+		Relay relay = mock(Relay.class);
 		SaslContext context = new SaslContext(relay);
 		context.init();
 		context.loggedIn();
 	}
 
 	@Test(expected = IllegalStateException.class)
-	public void testNoConfirmSuccess(@Mocked Relay relay) {
+	public void testNoConfirmSuccess() {
+		Relay relay = mock(Relay.class);
 		SaslContext context = new SaslContext(relay);
 		context.init();
 		context.success();
 	}
 
 	@Test
-	public void testConfirm(@Mocked final Relay relay) {
-		new Expectations() {
-			{
-				relay.send("AUTHENTICATE PLAIN");
-				relay.send("AUTHENTICATE amlsbGVzAGppbGxlcwBzZXNhbWU=");
-			}
-		};
+	public void testConfirm() {
+		Relay relay = mock(Relay.class);
 		SaslContext context = new SaslContext(relay);
 		context.init();
 		context.confirm("+", "jilles", "jilles", "sesame");
+		verify(relay).send("AUTHENTICATE PLAIN");
+		verify(relay).send("AUTHENTICATE amlsbGVzAGppbGxlcwBzZXNhbWU=");
 	}
 
 	@Test
-	public void testConfirmWithMessageCutoff(@Mocked final Relay relay) {
-		new Expectations() {
-			{
-				relay.send("AUTHENTICATE PLAIN");
-				relay.send("AUTHENTICATE amlsbGVzamlsbGVzamlsbGVzamlsbGVzamlsbGVzamlsbGVzamlsbGVzamlsbGVzamlsbGVzamlsbGVzamlsbGVzamlsbGVzamlsbGVzamlsbGVzamlsbGVzamlsbGVzamlsbGVzamlsbGVzamlsbGVzamlsbGVzAGppbGxlc2ppbGxlc2ppbGxlc2ppbGxlc2ppbGxlc2ppbGxlc2ppbGxlc2ppbGxlc2ppbGxlc2ppbGxlcwBzZXNhbWVzZXNhbWVzZXNhbWVzZXNhbWVzZXNhbWVzZXNhbWVzZXNhbWVzZXNhbWVzZXNhbWVzZXNhbWVzZXNhbWVzZXNhbWVzZXNhbWVzZXNhbWVzZXNhbWVzZXNhbWVzZXNhbWVzZXNhbWV");
-			}
-		};
+	public void testConfirmWithMessageCutoff() {
+		Relay relay = mock(Relay.class);
 		SaslContext context = new SaslContext(relay);
 		context.init();
 		context.confirm("+", "jillesjillesjillesjillesjillesjillesjillesjillesjillesjillesjillesjillesjillesjillesjillesjillesjillesjillesjillesjilles", "jillesjillesjillesjillesjillesjillesjillesjillesjillesjilles", "sesamesesamesesamesesamesesamesesamesesamesesamesesamesesamesesamesesamesesamesesamesesamesesamesesamesesamesesamesesame");
+		verify(relay).send("AUTHENTICATE PLAIN");
+		verify(relay).send("AUTHENTICATE amlsbGVzamlsbGVzamlsbGVzamlsbGVzamlsbGVzamlsbGVzamlsbGVzamlsbGVzamlsbGVzamlsbGVzamlsbGVzamlsbGVzamlsbGVzamlsbGVzamlsbGVzamlsbGVzamlsbGVzamlsbGVzamlsbGVzamlsbGVzAGppbGxlc2ppbGxlc2ppbGxlc2ppbGxlc2ppbGxlc2ppbGxlc2ppbGxlc2ppbGxlc2ppbGxlc2ppbGxlcwBzZXNhbWVzZXNhbWVzZXNhbWVzZXNhbWVzZXNhbWVzZXNhbWVzZXNhbWVzZXNhbWVzZXNhbWVzZXNhbWVzZXNhbWVzZXNhbWVzZXNhbWVzZXNhbWVzZXNhbWVzZXNhbWVzZXNhbWVzZXNhbWV");
 	}
 
 	@Test
-	public void testConfirmLoggedIn(@Mocked final Relay relay) {
-		new Expectations() {
-			{
-				relay.send("AUTHENTICATE PLAIN");
-				relay.send("AUTHENTICATE amlsbGVzAGppbGxlcwBzZXNhbWU=");
-			}
-		};
+	public void testConfirmLoggedIn() {
+		Relay relay = mock(Relay.class);
 		SaslContext context = new SaslContext(relay);
 		context.init();
 		context.confirm("+", "jilles", "jilles", "sesame");
 		context.loggedIn();
+		verify(relay).send("AUTHENTICATE PLAIN");
+		verify(relay).send("AUTHENTICATE amlsbGVzAGppbGxlcwBzZXNhbWU=");
 	}
 
 	@Test
-	public void testConfirmSuccess(@Mocked final Relay relay) {
-		new Expectations() {
-			{
-				relay.send("AUTHENTICATE PLAIN");
-				relay.send("AUTHENTICATE amlsbGVzAGppbGxlcwBzZXNhbWU=");
-			}
-		};
+	public void testConfirmSuccess() {
+		Relay relay = mock(Relay.class);
 		SaslContext context = new SaslContext(relay);
 		context.init();
 		context.confirm("+", "jilles", "jilles", "sesame");
 		context.success();
+		verify(relay).send("AUTHENTICATE PLAIN");
+		verify(relay).send("AUTHENTICATE amlsbGVzAGppbGxlcwBzZXNhbWU=");
 	}
 
 	@Test
-	public void testFullyAuthenticated(@Mocked final Relay relay) {
-		new Expectations() {
-			{
-				relay.send("AUTHENTICATE PLAIN");
-				relay.send("AUTHENTICATE amlsbGVzAGppbGxlcwBzZXNhbWU=");
-			}
-		};
+	public void testFullyAuthenticated() {
+		Relay relay = mock(Relay.class);
 		SaslContext context = new SaslContext(relay);
 		context.init();
 		context.confirm("+", "jilles", "jilles", "sesame");
 		context.loggedIn();
 		context.success();
+		verify(relay).send("AUTHENTICATE PLAIN");
+		verify(relay).send("AUTHENTICATE amlsbGVzAGppbGxlcwBzZXNhbWU=");
 	}
 
 	@Test(expected = IllegalStateException.class)
-	public void testFailBeforeInitiation(@Mocked final Relay relay) {
+	public void testFailBeforeInitiation() {
+		Relay relay = mock(Relay.class);
 		SaslContext context = new SaslContext(relay);
 		context.fail();
 	}
 
 	@Test(expected = IllegalStateException.class)
-	public void testAbortBeforeInitiation(@Mocked final Relay relay) {
+	public void testAbortBeforeInitiation() {
+		Relay relay = mock(Relay.class);
 		SaslContext context = new SaslContext(relay);
 		context.abort();
 	}
 
 	@Test
-	public void testAbortAfterInitiation(@Mocked final Relay relay) {
-		new Expectations() {
-			{
-				relay.send("AUTHENTICATE PLAIN");
-				relay.send("AUTHENTICATE *");
-			}
-		};
+	public void testAbortAfterInitiation() {
+		Relay relay = mock(Relay.class);
 		SaslContext context = new SaslContext(relay);
 		context.init();
 		context.abort();
+		verify(relay).send("AUTHENTICATE PLAIN");
+		verify(relay).send("AUTHENTICATE *");
 	}
 
 	@Test
-	public void testAbortAfterConfirmation(@Mocked final Relay relay) {
-		new Expectations() {
-			{
-				relay.send("AUTHENTICATE PLAIN");
-				relay.send("AUTHENTICATE amlsbGVzAGppbGxlcwBzZXNhbWU=");
-				relay.send("AUTHENTICATE *");
-			}
-		};
+	public void testAbortAfterConfirmation() {
+		Relay relay = mock(Relay.class);
 		SaslContext context = new SaslContext(relay);
 		context.init();
 		context.confirm("+", "jilles", "jilles", "sesame");
 		context.abort();
+		verify(relay).send("AUTHENTICATE PLAIN");
+		verify(relay).send("AUTHENTICATE amlsbGVzAGppbGxlcwBzZXNhbWU=");
+		verify(relay).send("AUTHENTICATE *");
 	}
 
 	@Test
-	public void testFailAfterSuccessfulAuthentication(@Mocked final Relay relay) {
-		new Expectations() {
-			{
-				relay.send("AUTHENTICATE PLAIN");
-				relay.send("AUTHENTICATE amlsbGVzAGppbGxlcwBzZXNhbWU=");
-			}
-		};
+	public void testFailAfterSuccessfulAuthentication() {
+		Relay relay = mock(Relay.class);
 		SaslContext context = new SaslContext(relay);
 		context.init();
 		context.confirm("+", "jilles", "jilles", "sesame");
 		context.loggedIn();
 		context.success();
 		context.fail();
+		verify(relay).send("AUTHENTICATE PLAIN");
+		verify(relay).send("AUTHENTICATE amlsbGVzAGppbGxlcwBzZXNhbWU=");
 	}
 
 	@Test
-	public void testAbortOnFailedAuthenticationMechanism(@Mocked final Relay relay) {
-		new Expectations() {
-			{
-				relay.send("AUTHENTICATE PLAIN");
-				relay.send("AUTHENTICATE *");
-			}
-		};
+	public void testAbortOnFailedAuthenticationMechanism() {
+		Relay relay = mock(Relay.class);
 		SaslContext context = new SaslContext(relay);
 		context.init();
 		context.fail();
+		verify(relay).send("AUTHENTICATE PLAIN");
+		verify(relay).send("AUTHENTICATE *");
 	}
 
 	@Test
-	public void testAbortOnFailedAuthentication(@Mocked final Relay relay) {
-		new Expectations() {
-			{
-				relay.send("AUTHENTICATE PLAIN");
-				relay.send("AUTHENTICATE amlsbGVzAGppbGxlcwBzZXNhbWU=");
-				relay.send("AUTHENTICATE *");
-			}
-		};
+	public void testAbortOnFailedAuthentication() {
+		Relay relay = mock(Relay.class);
 		SaslContext context = new SaslContext(relay);
 		context.init();
 		context.confirm("+", "jilles", "jilles", "sesame");
 		context.fail();
+		verify(relay).send("AUTHENTICATE PLAIN");
+		verify(relay).send("AUTHENTICATE amlsbGVzAGppbGxlcwBzZXNhbWU=");
+		verify(relay).send("AUTHENTICATE *");
 	}
 }

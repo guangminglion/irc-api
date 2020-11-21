@@ -8,9 +8,9 @@ import com.ircclouds.irc.api.negotiators.CompositeNegotiator.Host;
 import com.ircclouds.irc.api.negotiators.api.Relay;
 import java.util.Collections;
 import java.util.LinkedList;
-import mockit.Mocked;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
 
 /**
  * Tests for composite negotiator.
@@ -137,7 +137,8 @@ public class CompositeNegotiatorTest
 	}
 
 	@Test
-	public void testInitiate(@Mocked IRCApi ircapi) {
+	public void testInitiate() {
+		IRCApi ircapi = mock(IRCApi.class);
 		Capability cap = getCapability("away-notify");
 		CompositeNegotiator negotiator = new CompositeNegotiator(Collections.singletonList(cap), null);
 		CapCmd cmd = negotiator.initiate(ircapi);

@@ -6,9 +6,7 @@ import java.nio.*;
 
 import javax.net.ssl.*;
 
-import mockit.*;
-
-public class MockConnectionImpl implements IConnection
+public class MockConnectionImpl extends SocketChannelConnection
 {
 	private BufferedReader reader;
 	private String filename;
@@ -18,8 +16,8 @@ public class MockConnectionImpl implements IConnection
 	{
 		filename = aFileName;
 	}
-	
-	@Mock
+
+	@Override
 	public boolean open(String aHostname, int aPort, SSLContext aCtx, Proxy aProxy, boolean aResolveByProxy) throws IOException
 	{
 		InputStream _resourceAsStream = MockConnectionImpl.class.getResourceAsStream(filename);
@@ -31,7 +29,7 @@ public class MockConnectionImpl implements IConnection
 		throw new RuntimeException("Error locating resource.");
 	}
 
-	@Mock
+	@Override
 	public void close() throws IOException
 	{
 		if (reader != null)
@@ -40,13 +38,13 @@ public class MockConnectionImpl implements IConnection
 		}
 	}
 
-	@Mock
+	@Override
 	public int write(String aMessage) throws IOException
 	{
 		return aMessage.length();
 	}
 
-	@Mock
+	@Override
 	public String read() throws IOException
 	{
 		buffer.clear();

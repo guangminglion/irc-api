@@ -1,8 +1,8 @@
 package com.ircclouds.irc.api;
 
-import java.util.concurrent.*;
+import static org.powermock.api.mockito.PowerMockito.whenNew;
 
-import mockit.*;
+import java.util.concurrent.*;
 
 import com.ircclouds.irc.api.comms.*;
 import com.ircclouds.irc.api.state.*;
@@ -12,12 +12,11 @@ public class MockUtils
 	private static Thread readerThread;
 	private static ConnectedApi connectedApi;
 
-	public static ConnectedApi newConnectedApi(IConnection aConnection, IServerParameters aServerParams, Integer aWaitingDuration) throws Exception
+	public static ConnectedApi newConnectedApi(SocketChannelConnection aConnection, IServerParameters aServerParams, Integer aWaitingDuration) throws Exception
 	{
-		Mockit.setUpMock(SocketChannelConnection.class, aConnection);
-
 		final CountDownLatch _cdl = new CountDownLatch(1);
 
+		whenNew(SocketChannelConnection.class).withAnyArguments().thenReturn(aConnection);
 		final IRCApi api = new IRCApiImpl(false);
 		api.connect(aServerParams, new Callback<IIRCState>()
 		{
